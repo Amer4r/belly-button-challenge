@@ -36,6 +36,30 @@ function charts(sample) {
         let otu_ids = resultFirst.otu_ids;
         let otu_labels = resultFirst.otu_labels;
 
+        console.log(otu_ids)
+
+        // create the chart trace to plot it
+        let bubble_chart = [{
+            x: otu_ids,
+            y: sample_values,
+            text: otu_labels,
+            mode: 'markers',
+            marker: {
+                color: otu_ids,
+                size: sample_values,
+                colorscale: "Earth"
+            }
+        }];
+        // create a layout for the bubble chart
+        let bubble_layout = {
+            title: 'Top 10 OTUs Bubble chart',
+            height: 600,
+            width: 1200,
+            hovermode: 'closest',
+        }
+        // plot the bobble chart
+        Plotly.newPlot('bubble', bubble_chart, bubble_layout);
+
         // create the chart trace to plot it
         let bar_chart = [{
             x: sample_values.slice(0, 10).reverse(),
@@ -53,26 +77,7 @@ function charts(sample) {
         // Plot the bar chart
         Plotly.newPlot('bar', bar_chart, bar_layout)
 
-        // create the chart trace to plot it
-        let bubble_chart = [{
-            x: otu_ids,
-            y: sample_values,
-            text: otu_labels,
-            mode: 'markers',
-            markers: {
-                size: sample_values,
-                color: otu_ids,
-            }
-        }]
-        // create a layout for the bubble chart
-        let bubble_layout = {
-            title: 'Top 10 OTUs Bubble chart',
-            height: 600,
-            width: 1200,
-            hovermode: 'closest',
-        }
-        // plot the bobble chart
-        Plotly.newPlot('bubble', bubble_chart, bubble_layout)
+
     });
 };
 
